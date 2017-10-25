@@ -44,6 +44,9 @@ about:
   description: |
     Simple but high performance Cython hash table mapping pre-randomized keys
     to void* values.
+  doc_url: https://pypi.python.org/pypi/preshed
+  doc_source_url: https://github.com/explosion/preshed/blob/master/README.rst
+  dev_url: https://github.com/spacy-io/preshed
 
 extra:
   recipe-maintainers:
