@@ -1,6 +1,6 @@
 {% set name = "preshed" %}
-{% set version = "1.0.1" %}
-{% set sha256sum = "7b99ace606143a922163a7ff7ad4969b296288f5b20b9c9bda328caec3b92f71" %}
+{% set version = "2.0.1" %}
+{% set sha256sum = "dae01c74313965c487e0ec839e5f28d0c7df9bfd1d978aa5bada3f72ff20a9e5" %}
 
 package:
   name: {{ name }}
@@ -23,12 +23,11 @@ requirements:
     - msinttypes  # [win and vc<14]
     - python
     - setuptools
-    - cymem >=1.30,<1.32
-
-
+    # setup.py has wheel in setup_requires
+    - wheel >=0.32.0,<0.33.0
   run:
     - python
-    - cymem >=1.30,<1.32
+    - cymem >=2.0.2,<2.1.0
 
 test:
   imports:
