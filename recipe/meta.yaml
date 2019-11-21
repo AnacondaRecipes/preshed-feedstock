@@ -14,7 +14,6 @@ source:
 build:
   number: 4
   script: "{{ PYTHON }} -m pip install . --no-deps -vv"
-  skip: True  # [win32 or linux32]
 
 requirements:
   build:
