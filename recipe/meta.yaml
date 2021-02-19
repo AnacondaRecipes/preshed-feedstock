@@ -21,6 +21,7 @@ requirements:
     - {{ compiler('cxx') }}
   host:
     - python
+    - cython
     - pip
     - msinttypes  # [win and vc<14]
 
