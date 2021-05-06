@@ -17,27 +17,33 @@ build:
 
 requirements:
   build:
+    - python                                 # [build_platform != target_platform]
+    - cython                                 # [build_platform != target_platform]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
-    - python
-    - pip
+    - cymem >=2.0.2,<2.1.0
+    - murmurhash >=0.28.0,<1.1.0
+    - cython
     - msinttypes  # [win and vc<14]
+    - pip
+    - python
+    - setuptools
+    - wheel
 
   run:
     - python
     - cymem >=2.0.2,<2.1.0
-    - murmurhash <1.1.0,>=0.28.0
+    - murmurhash >=0.28.0,<1.1.0
 
 
 test:
-  imports:
-    - preshed
-    - preshed.counter
-    - preshed.maps
-    - preshed.tests
   requires:
     - pytest
+  imports:
+    - {{ name }}
+  commands:
+    - python -m pytest --tb=native --pyargs {{ name }}
 
 about:
   home: https://github.com/explosion/preshed
@@ -55,3 +61,6 @@ extra:
   recipe-maintainers:
     - rmax
     - h-vetinari
+    - ines
+    - honnibal
+    - adrianeboyd
