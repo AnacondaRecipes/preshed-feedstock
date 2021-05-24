@@ -12,9 +12,10 @@ source:
   sha256: {{ sha256sum }}
 
 build:
-  number: 2
+  number: 4
   script: "{{ PYTHON }} -m pip install . --no-deps -vv"
-  skip: True  # [win32]
+  # 5/24/2021: Skip win32 for py38-py39 because of error 'Unsatisfiable dependencies for platform win-32'
+  skip: True  # [win32 and py>=38]
 
 requirements:
   build:
