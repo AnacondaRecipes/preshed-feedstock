@@ -12,39 +12,35 @@ source:
   sha256: {{ sha256sum }}
 
 build:
-  number: 4
-  script: "{{ PYTHON }} -m pip install . --no-deps -vv"
-  # 5/24/2021: Skip win32 for py38-py39 because of error 'Unsatisfiable dependencies for platform win-32'
-  skip: True  # [win32 and py>=38]
+  number: 0
+  script: {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
   build:
-    - python                                 # [build_platform != target_platform]
-    - cython                                 # [build_platform != target_platform]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
+    - python
+    - cython >=0.28
     - cymem >=2.0.2,<2.1.0
     - murmurhash >=0.28.0,<1.1.0
-    - cython
     - msinttypes  # [win and vc<14]
     - pip
-    - python
     - setuptools
     - wheel
-
   run:
     - python
     - cymem >=2.0.2,<2.1.0
     - murmurhash >=0.28.0,<1.1.0
 
-
 test:
   requires:
+    - pip
     - pytest
   imports:
     - {{ name }}
   commands:
+    - pip check
     - python -m pytest --tb=native --pyargs {{ name }}
 
 about:
