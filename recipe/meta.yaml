@@ -1,6 +1,6 @@
 {% set name = "preshed" %}
-{% set version = "3.0.5" %}
-{% set sha256sum = "c6d3dba39ed5059aaf99767017b9568c75b2d0780c3481e204b1daecde00360e" %}
+{% set version = "3.0.6" %}
+{% set sha256sum = "fb3b7588a3a0f2f2f1bf3fe403361b2b031212b73a37025aea1df7215af3772a" %}
 
 package:
   name: {{ name }}
@@ -12,44 +12,42 @@ source:
   sha256: {{ sha256sum }}
 
 build:
-  number: 4
-  script: "{{ PYTHON }} -m pip install . --no-deps -vv"
-  # 5/24/2021: Skip win32 for py38-py39 because of error 'Unsatisfiable dependencies for platform win-32'
-  skip: True  # [win32 and py>=38]
+  number: 0
+  skip: True  # [s390x or win32]
+  script: {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
   build:
-    - python                                 # [build_platform != target_platform]
-    - cython                                 # [build_platform != target_platform]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
+    - python
+    - cython >=0.28
     - cymem >=2.0.2,<2.1.0
     - murmurhash >=0.28.0,<1.1.0
-    - cython
     - msinttypes  # [win and vc<14]
     - pip
-    - python
     - setuptools
     - wheel
-
   run:
     - python
     - cymem >=2.0.2,<2.1.0
     - murmurhash >=0.28.0,<1.1.0
 
-
 test:
   requires:
+    - pip
     - pytest
   imports:
     - {{ name }}
   commands:
+    - pip check
     - python -m pytest --tb=native --pyargs {{ name }}
 
 about:
   home: https://github.com/explosion/preshed
   license: MIT
+  license_family: MIT
   license_file: LICENSE
   summary: Cython Hash Table for Pre-Hashed Keys
   description: |
