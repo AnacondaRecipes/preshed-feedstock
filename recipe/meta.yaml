@@ -47,6 +47,7 @@ test:
 about:
   home: https://github.com/explosion/preshed
   license: MIT
+  license_family: MIT
   license_file: LICENSE
   summary: Cython Hash Table for Pre-Hashed Keys
   description: |
