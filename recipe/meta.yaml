@@ -1,20 +1,18 @@
 {% set name = "preshed" %}
-{% set version = "3.0.6" %}
-{% set sha256sum = "fb3b7588a3a0f2f2f1bf3fe403361b2b031212b73a37025aea1df7215af3772a" %}
+{% set version = "3.0.9" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256sum }}
+  sha256: 721863c5244ffcd2651ad0928951a2c7c77b102f4e11a251ad85d37ee7621660
 
 build:
   number: 0
-  skip: True  # [s390x or win32]
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  skip: True  # [py<36]
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
   build:
@@ -25,7 +23,6 @@ requirements:
     - cython >=0.28
     - cymem >=2.0.2,<2.1.0
     - murmurhash >=0.28.0,<1.1.0
-    - msinttypes  # [win and vc<14]
     - pip
     - setuptools
     - wheel
@@ -54,7 +51,6 @@ about:
     Simple but high performance Cython hash table mapping pre-randomized keys
     to void* values.
   doc_url: https://pypi.python.org/pypi/preshed
-  doc_source_url: https://github.com/explosion/preshed/blob/master/README.rst
   dev_url: https://github.com/spacy-io/preshed
 
 extra:
